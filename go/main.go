@@ -36,12 +36,19 @@ func remove(homeDir string, item string) {
 }
 
 func main() {
+	programVersion := "clean 1.1 (Go)"
 	userHome, e := os.UserHomeDir()
 	checkFatal(e)
 
 	var listFilePath string
 	flag.StringVar(&listFilePath, "l", userHome+"/.config/clean/files.list", "Specifies the path to list file")
+	showVersion := flag.Bool("v", false, "Displays program version information")
 	flag.Parse()
+
+	if *showVersion {
+		fmt.Println(programVersion)
+		return
+	}
 
 	list, e := getList(listFilePath)
 	checkFatal(e)
